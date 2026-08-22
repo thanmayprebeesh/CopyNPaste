@@ -18,14 +18,12 @@ Copy&Paste lives in the menu bar and keeps track of your recently copied items s
 - SwiftUI
 - AppKit
 
-## Screenshots
-
-Coming soon.
-
 ## How to Run
 
 1. Clone the repository
 2. Open the project in Xcode
 3. Build and run
+
+## Releases
 
 ***Releases coming soon***
