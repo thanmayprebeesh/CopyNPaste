@@ -38,16 +38,16 @@ class ClipboardManager{
                 return
             }
             
-            AddToHistory()
+            AddToHistory(sourceApp: NSWorkspace.shared.frontmostApplication?.bundleIdentifier)
         }
     }
     
-    private func AddToHistory(){
+    private func AddToHistory(sourceApp: String?){
         if let text = pasteboard.string(forType: .string) {
-            history.insert(ClipboardItem(text: text), at: 0)
+            history.insert(ClipboardItem(text: text, sourceApp: sourceApp), at: 0)
         }
         else if let image = pasteboard.data(forType: .tiff) {
-            history.insert(ClipboardItem(image: image), at: 0)
+            history.insert(ClipboardItem(image: image, sourceApp: sourceApp), at: 0)
         }
         
         if history.count > 10{

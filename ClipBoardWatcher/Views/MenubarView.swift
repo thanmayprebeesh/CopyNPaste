@@ -17,7 +17,7 @@ struct MenubarView: View {
                 Image(systemName: "doc.on.clipboard")
                     .font(.title2)
                 
-                Text("ClipSearch")
+                Text("Copy&Paste")
                     .font(.headline)
                 
                 HStack {

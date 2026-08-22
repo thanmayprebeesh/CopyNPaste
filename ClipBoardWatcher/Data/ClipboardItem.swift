@@ -16,16 +16,19 @@ struct ClipboardItem: Identifiable, Codable{
     let id: UUID
     let content: ClipboardContent
     let date: Date
+    let sourceApp: String?
     
-    init(text: String) {
+    init(text: String, sourceApp: String?) {
         self.id = UUID()
         self.content = .text(text)
         self.date = Date()
+        self.sourceApp = sourceApp
     }
     
-    init(image: Data) {
+    init(image: Data, sourceApp: String?) {
         self.id = UUID()
         self.content = .image(image)
         self.date = Date()
+        self.sourceApp = sourceApp
     }
 }
