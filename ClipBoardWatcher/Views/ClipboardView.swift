@@ -8,41 +8,30 @@
 import SwiftUI
 
 struct ClipboardView: View {
-    
-    @State private var searchText: String = ""
     @State private var isCloseButtonHovered = false
     
     let clipboardManager: ClipboardManager
-    let panelController: ClipboardPanelController
+    let panelController: ClipboardPanelController?
     
     var body: some View {
         VStack(spacing: 10){
             HStack {
                 Button{
-                    panelController.toggle()
+                    panelController?.toggle()
                 } label: {
                     Image(systemName: "x.circle.fill")
                 }
                 .buttonStyle(.plain)
                 .scaleEffect(isCloseButtonHovered ? 1.1 : 1)
+                .pointingHandCursor()
                 .onHover { hovering in
                     withAnimation(.easeInOut(duration: 0.15)){
                         isCloseButtonHovered = hovering
                     }
                 }
                 
-                HStack {
-                  Image(systemName: "magnifyingglass")
-                  TextField("Search Clipboard...", text: $searchText)
-                        .textFieldStyle(.plain)
-                }
-                .padding(6)
-                .background {
-                   RoundedRectangle(cornerRadius: 10)
-                     .foregroundStyle(.ultraThinMaterial)
-                }
+                ClipboardSearchBar()
             }
-            .frame(width: 320)
             
             ScrollView{
                 VStack{
@@ -54,9 +43,9 @@ struct ClipboardView: View {
                         }
                         .buttonStyle(.plain)
                         
+                        
                     }
                 }
-                .frame(width: 320)
             }
             .scrollIndicators(.never)
             .frame(height: 500)
@@ -75,8 +64,10 @@ struct ClipboardView: View {
                     Image(systemName: "document.on.trash")
                         .font(.default)
                 }
+                .pointingHandCursor()
             }
         }
+        .frame(width: 320, height: 570)
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 16)
@@ -87,5 +78,5 @@ struct ClipboardView: View {
 
 #Preview {
     //Change this so that its not monitoring everytime its initialized
-    //ClipboardView(clipboardManager: ClipboardManager())
+    ClipboardView(clipboardManager: ClipboardManager(), panelController: nil)
 }

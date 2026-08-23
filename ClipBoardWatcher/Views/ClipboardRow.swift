@@ -66,7 +66,8 @@ struct ClipboardRow: View{
                         .fill(isHovered ? .quaternary : .quinary)
                 )
         .clipShape(RoundedRectangle(cornerRadius: 8))
-        .scaleEffect(isHovered ? 0.98 : 1)
+        .scaleEffect(isHovered ? 0.99 : 1)
+        .pointingHandCursor()
         .onHover { hovering in
             withAnimation(.easeInOut(duration: 0.15)){
                 isHovered = hovering
