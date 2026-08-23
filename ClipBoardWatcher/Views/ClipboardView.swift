@@ -7,18 +7,29 @@
 
 import SwiftUI
 
-struct MenubarView: View {
+struct ClipboardView: View {
+    
     @State private var searchText: String = ""
+    @State private var isCloseButtonHovered = false
+    
     let clipboardManager: ClipboardManager
+    let panelController: ClipboardPanelController
     
     var body: some View {
         VStack(spacing: 10){
             HStack {
-                Image(systemName: "doc.on.clipboard")
-                    .font(.title2)
-                
-                Text("Copy&Paste")
-                    .font(.headline)
+                Button{
+                    panelController.toggle()
+                } label: {
+                    Image(systemName: "x.circle.fill")
+                }
+                .buttonStyle(.plain)
+                .scaleEffect(isCloseButtonHovered ? 1.1 : 1)
+                .onHover { hovering in
+                    withAnimation(.easeInOut(duration: 0.15)){
+                        isCloseButtonHovered = hovering
+                    }
+                }
                 
                 HStack {
                   Image(systemName: "magnifyingglass")
@@ -47,7 +58,7 @@ struct MenubarView: View {
                 }
                 .frame(width: 320)
             }
-            .scrollIndicators(.hidden)
+            .scrollIndicators(.never)
             .frame(height: 500)
             
             HStack{
@@ -67,9 +78,14 @@ struct MenubarView: View {
             }
         }
         .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.ultraThinMaterial)
+        )
     }
 }
 
 #Preview {
-    MenubarView(clipboardManager: ClipboardManager())
+    //Change this so that its not monitoring everytime its initialized
+    //ClipboardView(clipboardManager: ClipboardManager())
 }

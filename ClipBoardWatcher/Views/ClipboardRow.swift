@@ -13,8 +13,6 @@ struct ClipboardRow: View{
     
     @State private var isHovered = false
     
-    
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 6){
             switch item.content {

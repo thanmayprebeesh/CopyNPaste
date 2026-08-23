@@ -9,13 +9,11 @@ import SwiftUI
 
 @main
 struct ClipBoardWatcherApp: App {
-    
-    @State private var clipboardManager = ClipboardManager()
+    private var appController = AppController()
     
     var body: some Scene {
-        MenuBarExtra("ClipBoardWatcher", systemImage: "doc.on.clipboard"){
-            MenubarView(clipboardManager: clipboardManager)
+        Settings{
+            EmptyView()
         }
-        .menuBarExtraStyle(.window)
     }
 }
