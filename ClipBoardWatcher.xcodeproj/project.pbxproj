@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B38E72E6303AF1BC002482AD /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = B38E72E5303AF1BC002482AD /* HotKey */; };
+		B35C7EB1303C841800E6F660 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = B35C7EB0303C841800E6F660 /* KeyboardShortcuts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B38E72E6303AF1BC002482AD /* HotKey in Frameworks */,
+				B35C7EB1303C841800E6F660 /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +70,7 @@
 			);
 			name = ClipBoardWatcher;
 			packageProductDependencies = (
-				B38E72E5303AF1BC002482AD /* HotKey */,
+				B35C7EB0303C841800E6F660 /* KeyboardShortcuts */,
 			);
 			productName = ClipBoardWatcher;
 			productReference = B394C9CD3038846A0088B07E /* ClipBoardWatcher.app */;
@@ -101,7 +101,7 @@
 			mainGroup = B394C9C43038846A0088B07E;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				B38E72E4303AF1BC002482AD /* XCRemoteSwiftPackageReference "HotKey" */,
+				B35C7EAF303C841800E6F660 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B394C9CE3038846A0088B07E /* Products */;
@@ -340,21 +340,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B38E72E4303AF1BC002482AD /* XCRemoteSwiftPackageReference "HotKey" */ = {
+		B35C7EAF303C841800E6F660 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/soffes/HotKey";
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B38E72E5303AF1BC002482AD /* HotKey */ = {
+		B35C7EB0303C841800E6F660 /* KeyboardShortcuts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B38E72E4303AF1BC002482AD /* XCRemoteSwiftPackageReference "HotKey" */;
-			productName = HotKey;
+			package = B35C7EAF303C841800E6F660 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

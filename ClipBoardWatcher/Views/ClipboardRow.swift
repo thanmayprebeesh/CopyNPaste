@@ -55,10 +55,7 @@ struct ClipboardRow: View{
                         .foregroundStyle(.secondary)
                         .fontWeight(.semibold)
                 }
-                
             }
-            
-            
         }
         .padding(10)
         .background(

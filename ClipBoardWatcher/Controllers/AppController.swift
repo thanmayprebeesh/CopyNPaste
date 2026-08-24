@@ -7,12 +7,10 @@
 
 import Foundation
 import SwiftUI
+import KeyboardShortcuts
 
 final class AppController{
     private let panelController: ClipboardPanelController
-    private let menubarController: MenuBarController
-    
-    private let hotKeyManager: HotKeyManager
     
     private let clipboardManager: ClipboardManager
     
@@ -20,16 +18,9 @@ final class AppController{
         self.clipboardManager = ClipboardManager()
         
         panelController = ClipboardPanelController(clipboardManager: clipboardManager)
-        menubarController = MenuBarController(panelController: panelController)
         
-        hotKeyManager = HotKeyManager()
-        
-        hotKeyManager.onHotKey = {[weak self] in
-            self?.togglePanel()
+        KeyboardShortcuts.onKeyUp(for: .toggleClipboardPanel) {
+            self.panelController.toggle()
         }
-    }
-    
-    func togglePanel(){
-        panelController.toggle()
     }
 }
