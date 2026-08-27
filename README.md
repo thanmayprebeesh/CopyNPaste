@@ -10,11 +10,11 @@ CopyNPaste is a utility app that runs in the background while you work, keeping 
 - Supports text and images
 - Persistent history
 - Click an item to copy it again
-- ~~Search clipboard history~~
+- Search clipboard history
 
 ## Screenshots
 
-<img width="398" height="648" alt="640504991-55aaf142-fad3-4d80-9998-fb03e862aaba" src="https://github.com/user-attachments/assets/67cb8e01-f628-4cc5-b587-12f1f01c657e" />
+<img width="398" height="648" alt="image" src="https://github.com/user-attachments/assets/8a041f0b-6c66-4d53-bc05-6376075e0e80" />
 
 ## Installation
 Download `CopyNPaste.dmg`, open it, and drag the app into Applications.
