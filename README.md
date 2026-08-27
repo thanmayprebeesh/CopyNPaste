@@ -1,8 +1,8 @@
-# Copy&Paste
+# CopyNPaste
 
 A simple clipboard manager for macOS.
 
-Copy&Paste lives in the menu bar and keeps track of your recently copied items so you can easily access and copy them again.
+CopyNPaste is a utility app that runs in the background while you work, keeping track of your recently copied items so you can easily access and copy them again.
 
 ## Features
 
@@ -12,18 +12,15 @@ Copy&Paste lives in the menu bar and keeps track of your recently copied items s
 - Click an item to copy it again
 - ~~Search clipboard history~~
 
-## Built With
+## Screenshots
 
-- Swift
-- SwiftUI
-- AppKit
+<img width="398" height="648" alt="640504991-55aaf142-fad3-4d80-9998-fb03e862aaba" src="https://github.com/user-attachments/assets/67cb8e01-f628-4cc5-b587-12f1f01c657e" />
 
-## How to Run
+## Installation
+Download `CopyNPaste.dmg`, open it, and drag the app into Applications.
+> macOS may show an "unidentified developer" warning because this release is not signed/notarized with an Apple Developer ID.
 
-1. Clone the repository
-2. Open the project in Xcode
-3. Build and run
+## Contributing
 
-## Releases
-
-***Releases coming soon***
+Contributions are welcome!
+If you have an idea, find a bug, or want to improve something, feel free to open an issue or submit a pull request.
