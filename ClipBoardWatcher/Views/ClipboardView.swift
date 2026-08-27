@@ -9,11 +9,24 @@ import SwiftUI
 
 struct ClipboardView: View {
     @State private var isCloseButtonHovered = false
+    @State private var searchText: String = ""
     
     let clipboardManager: ClipboardManager
     let panelController: ClipboardPanelController?
     
+    var filteredHistory: [ClipboardItem] {
+        clipboardManager.history.filter{ item in
+            switch item.content{
+            case .text(let text):
+                return searchText.isEmpty || text.localizedCaseInsensitiveContains(searchText)
+            case .image:
+                return searchText.isEmpty
+            }
+        }
+    }
+    
     var body: some View {
+        
         VStack(spacing: 10){
             HStack {
                 Button{
@@ -30,12 +43,21 @@ struct ClipboardView: View {
                     }
                 }
                 
-                ClipboardSearchBar()
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    TextField("Search Clipboard...", text: $searchText)
+                        .textFieldStyle(.plain)
+                    
+                }
+                .padding(6)
+                .background {
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundStyle(.ultraThinMaterial)
+                }
             }
-            
             ScrollView{
                 VStack{
-                    ForEach(clipboardManager.history){ item in
+                    ForEach(filteredHistory){ item in
                         Button{
                             clipboardManager.CopyItem(_item: item)
                         } label:{
@@ -49,7 +71,7 @@ struct ClipboardView: View {
             }
             .scrollIndicators(.never)
             .frame(height: 500)
-            
+                
             HStack{
                 Text("\(clipboardManager.history.count)/10")
                     .font(.caption)
