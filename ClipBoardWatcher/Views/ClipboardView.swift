@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ClipboardView: View {
+    @AppStorage("closeOnCopyItem") private var closeOnCopyItem = true
+    
     @State private var isCloseButtonHovered = false
     @State private var searchText: String = ""
     
@@ -60,6 +62,9 @@ struct ClipboardView: View {
                     ForEach(filteredHistory){ item in
                         Button{
                             clipboardManager.CopyItem(_item: item)
+                            if closeOnCopyItem{
+                                panelController?.toggle()
+                            }
                         } label:{
                             ClipboardRow(item: item)
                         }
