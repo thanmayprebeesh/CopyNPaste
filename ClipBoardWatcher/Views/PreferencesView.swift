@@ -16,11 +16,11 @@ extension KeyboardShortcuts.Name {
 
 struct PreferencesView: View {
     @AppStorage("launchAtLogin") private var launchAtLogin = false
+    @AppStorage("closeOnCopyItem") private var closeOnCopyItem = true
     @AppStorage("showInDock") private var showInDock = false
     
     var body: some View {
         VStack{
-            
             Toggle("Launch at login", isOn: $launchAtLogin)
                 .onChange(of: launchAtLogin) { _, newValue in
                         do {
@@ -33,6 +33,8 @@ struct PreferencesView: View {
                             print("Failed to \(newValue ? "register" : "unregister"): \(error)")
                         }
                     }
+            
+            Toggle("Close on copy item", isOn: $closeOnCopyItem)
             
             Divider()
             
