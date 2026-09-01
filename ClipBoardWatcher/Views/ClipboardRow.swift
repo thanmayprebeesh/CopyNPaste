@@ -12,6 +12,7 @@ struct ClipboardRow: View{
     let item: ClipboardItem
     
     @State private var isHovered = false
+    var shortcutNumber: Int
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6){
@@ -55,6 +56,15 @@ struct ClipboardRow: View{
                         .foregroundStyle(.secondary)
                         .fontWeight(.semibold)
                 }
+                
+                Spacer()
+                
+                if shortcutNumber < 10 {
+                    Text("⌘ " + String(shortcutNumber))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .fontWeight(.semibold)
+                }
             }
         }
         .padding(10)
@@ -74,5 +84,5 @@ struct ClipboardRow: View{
 }
 
 #Preview{
-    ClipboardRow(item: .init(text: "Hello World", sourceApp: "com.apple.Safari"))
+    ClipboardRow(item: .init(text: "Hello World", sourceApp: "com.apple.Safari"), shortcutNumber: 1)
 }
