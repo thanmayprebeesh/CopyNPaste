@@ -12,6 +12,11 @@ final class ClipboardPanel: NSPanel {
 
     override var canBecomeKey: Bool { true }
     override var canBecomeMain: Bool { true }
+    
+    //Function to hide panel on pressing the ESC key
+    override func cancelOperation(_ sender: Any?) {
+        orderOut(nil)
+    }
 
     convenience init<Content: View>(content: Content) {
         self.init(
