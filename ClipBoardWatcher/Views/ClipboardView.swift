@@ -16,6 +16,11 @@ struct ClipboardView: View {
     let clipboardManager: ClipboardManager
     let panelController: ClipboardPanelController?
     
+    let shortcutKeys: [KeyEquivalent] = [
+        "1", "2", "3", "4", "5",
+        "6", "7", "8", "9"
+    ]
+    
     var filteredHistory: [ClipboardItem] {
         clipboardManager.history.filter{ item in
             switch item.content{
@@ -60,19 +65,40 @@ struct ClipboardView: View {
             ScrollView{
                 VStack{
                     ForEach(Array(filteredHistory.enumerated()), id: \.element.id) { index, item in
-                        Button {
-                            clipboardManager.CopyItem(_item: item)
-
-                            if closeOnCopyItem {
-                                panelController?.toggle()
+                        if index < 9{
+                            Button {
+                                clipboardManager.CopyItem(_item: item)
+                                
+                                if closeOnCopyItem {
+                                    panelController?.toggle()
+                                }
+                            } label: {
+                                ClipboardRow(
+                                    item: item,
+                                    shortcutNumber: index + 1
+                                )
                             }
-                        } label: {
-                            ClipboardRow(
-                                item: item,
-                                shortcutNumber: index + 1
+                            .buttonStyle(.plain)
+                            .keyboardShortcut(
+                                shortcutKeys[index],
+                                modifiers: .command
                             )
                         }
-                        .buttonStyle(.plain)
+                        else{
+                            Button {
+                                clipboardManager.CopyItem(_item: item)
+                                
+                                if closeOnCopyItem {
+                                    panelController?.toggle()
+                                }
+                            } label: {
+                                ClipboardRow(
+                                    item: item,
+                                    shortcutNumber: index + 1
+                                )
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
                 }
             }
