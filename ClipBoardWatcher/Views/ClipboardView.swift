@@ -13,6 +13,8 @@ struct ClipboardView: View {
     @State private var isCloseButtonHovered = false
     @State private var searchText: String = ""
     
+    @FocusState private var isSearchFocused: Bool
+    
     let clipboardManager: ClipboardManager
     let panelController: ClipboardPanelController?
     
@@ -54,7 +56,16 @@ struct ClipboardView: View {
                     Image(systemName: "magnifyingglass")
                     TextField("Search Clipboard...", text: $searchText)
                         .textFieldStyle(.plain)
+                        .focused($isSearchFocused)
                     
+                    //Hidden button to focus the search bar
+                    Button{
+                        isSearchFocused = true
+                    } label:{
+                        EmptyView()
+                    }
+                    .keyboardShortcut("f", modifiers: .command)
+                    .hidden()
                 }
                 .padding(6)
                 .background {
