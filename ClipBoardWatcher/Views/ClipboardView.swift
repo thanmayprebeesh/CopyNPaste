@@ -59,18 +59,20 @@ struct ClipboardView: View {
             }
             ScrollView{
                 VStack{
-                    ForEach(filteredHistory){ item in
-                        Button{
+                    ForEach(Array(filteredHistory.enumerated()), id: \.element.id) { index, item in
+                        Button {
                             clipboardManager.CopyItem(_item: item)
-                            if closeOnCopyItem{
+
+                            if closeOnCopyItem {
                                 panelController?.toggle()
                             }
-                        } label:{
-                            ClipboardRow(item: item)
+                        } label: {
+                            ClipboardRow(
+                                item: item,
+                                shortcutNumber: index + 1
+                            )
                         }
                         .buttonStyle(.plain)
-                        
-                        
                     }
                 }
             }
