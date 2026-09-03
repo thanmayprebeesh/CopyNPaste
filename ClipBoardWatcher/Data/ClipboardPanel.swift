@@ -8,10 +8,11 @@
 import AppKit
 import SwiftUI
 
+//To relay data from ClipboardPanel to ClipboardView
 extension Notification.Name {
     static let clipboardMoveUp = Notification.Name("clipboardMoveUp")
     static let clipboardMoveDown = Notification.Name("clipboardMoveDown")
-    static let clipboardReturn = Notification.Name("clipboardReturn")
+    static let clipboardSelect = Notification.Name("clipboardSelect")
 }
 
 final class ClipboardPanel: NSPanel {
@@ -41,7 +42,7 @@ final class ClipboardPanel: NSPanel {
             
         case 36: // Return
             NotificationCenter.default.post(
-                name: .clipboardMoveDown,
+                name: .clipboardSelect,
                 object: nil
             )
 

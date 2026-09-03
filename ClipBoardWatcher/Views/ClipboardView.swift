@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ClipboardView: View {
+    //User preference variables
     @AppStorage("closeOnCopyItem") private var closeOnCopyItem = true
     @AppStorage("playSoundOnCopyItem") private var playSoundOnCopyItem = true
     
@@ -20,10 +21,25 @@ struct ClipboardView: View {
     let clipboardManager: ClipboardManager
     let panelController: ClipboardPanelController?
     
+    //KeyEquivalent array for clipboard item shortcuts
     let shortcutKeys: [KeyEquivalent] = [
         "1", "2", "3", "4", "5",
         "6", "7", "8", "9"
     ]
+    
+    //What should happen when a clipboardItem is clicked/returned
+    func onCopyPressed(item: ClipboardItem){
+        clipboardManager.CopyItem(_item: item)
+        
+        //Sound to indicate item is copied
+        if playSoundOnCopyItem{
+            NSSound(named: "Bottle")?.play()
+        }
+        
+        if closeOnCopyItem {
+            panelController?.toggle()
+        }
+    }
     
     var filteredHistory: [ClipboardItem] {
         clipboardManager.history.filter{ item in
@@ -82,15 +98,7 @@ struct ClipboardView: View {
                         ForEach(Array(filteredHistory.enumerated()), id: \.element.id) { index, item in
                             if index < 9{
                                 Button {
-                                    clipboardManager.CopyItem(_item: item)
-                                    
-                                    if playSoundOnCopyItem{
-                                        NSSound(named: "Bottle")?.play()
-                                    }
-                                    
-                                    if closeOnCopyItem {
-                                        panelController?.toggle()
-                                    }
+                                    onCopyPressed(item: item)
                                 } label: {
                                     ClipboardRow(
                                         item: item,
@@ -107,11 +115,7 @@ struct ClipboardView: View {
                             }
                             else{
                                 Button {
-                                    clipboardManager.CopyItem(_item: item)
-                                    
-                                    if closeOnCopyItem {
-                                        panelController?.toggle()
-                                    }
+                                    onCopyPressed(item: item)
                                 } label: {
                                     ClipboardRow(
                                         item: item,
@@ -124,6 +128,7 @@ struct ClipboardView: View {
                             }
                         }
                     }
+                    //Up arrow key pressed
                     .onReceive(
                         NotificationCenter.default.publisher(
                             for: .clipboardMoveUp
@@ -133,6 +138,7 @@ struct ClipboardView: View {
                             selectedIndex -= 1
                         }
                     }
+                    //Down arrow key pressed
                     .onReceive(
                         NotificationCenter.default.publisher(
                             for: .clipboardMoveDown
@@ -142,9 +148,10 @@ struct ClipboardView: View {
                             selectedIndex += 1
                         }
                     }
+                    //Return key pressed
                     .onReceive(
                         NotificationCenter.default.publisher(
-                            for: .clipboardReturn
+                            for: .clipboardSelect
                         )
                     ) { _ in
                         guard filteredHistory.indices.contains(selectedIndex) else {
@@ -153,15 +160,12 @@ struct ClipboardView: View {
                         
                         let item = filteredHistory[selectedIndex]
                         
-                        clipboardManager.CopyItem(_item: item)
-                        
-                        if closeOnCopyItem {
-                            panelController?.toggle()
-                        }
+                        onCopyPressed(item: item)
                     }
                 }
                 .scrollIndicators(.never)
                 .frame(height: 500)
+                //Scroll to the selected item
                 .onChange(of: selectedIndex) {
                     withAnimation {
                         proxy.scrollTo(selectedIndex, anchor: .bottom)

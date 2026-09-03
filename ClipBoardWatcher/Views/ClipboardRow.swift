@@ -69,18 +69,20 @@ struct ClipboardRow: View{
             }
         }
         .padding(10)
+        .pointingHandCursor()
+        //Effects to show the row is hovered on
         .background(
                     RoundedRectangle(cornerRadius: 8)
                         .fill(isHovered ? .quaternary : .quinary)
                 )
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .scaleEffect(isHovered ? 0.99 : 1)
-        .pointingHandCursor()
         .onHover { hovering in
             withAnimation(.easeInOut(duration: 0.15)){
                 isHovered = hovering
             }
         }
+        //Border to show the row is selected
         .overlay {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(
