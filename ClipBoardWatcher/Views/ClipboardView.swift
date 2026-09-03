@@ -13,6 +13,7 @@ struct ClipboardView: View {
     
     @State private var isCloseButtonHovered = false
     @State private var searchText: String = ""
+    @State private var selectedIndex = 0
     
     @FocusState private var isSearchFocused: Bool
     
@@ -74,52 +75,99 @@ struct ClipboardView: View {
                         .foregroundStyle(.ultraThinMaterial)
                 }
             }
-            ScrollView{
-                VStack{
-                    ForEach(Array(filteredHistory.enumerated()), id: \.element.id) { index, item in
-                        if index < 9{
-                            Button {
-                                clipboardManager.CopyItem(_item: item)
-                                
-                                if playSoundOnCopyItem{
-                                    NSSound(named: "Bottle")?.play()
+            
+            ScrollViewReader{ proxy in
+                ScrollView{
+                    VStack{
+                        ForEach(Array(filteredHistory.enumerated()), id: \.element.id) { index, item in
+                            if index < 9{
+                                Button {
+                                    clipboardManager.CopyItem(_item: item)
+                                    
+                                    if playSoundOnCopyItem{
+                                        NSSound(named: "Bottle")?.play()
+                                    }
+                                    
+                                    if closeOnCopyItem {
+                                        panelController?.toggle()
+                                    }
+                                } label: {
+                                    ClipboardRow(
+                                        item: item,
+                                        isSelected: selectedIndex == index,
+                                        shortcutNumber: index + 1
+                                    )
                                 }
-                                
-                                if closeOnCopyItem {
-                                    panelController?.toggle()
-                                }
-                            } label: {
-                                ClipboardRow(
-                                    item: item,
-                                    shortcutNumber: index + 1
+                                .buttonStyle(.plain)
+                                .id(index)
+                                .keyboardShortcut(
+                                    shortcutKeys[index],
+                                    modifiers: .command
                                 )
                             }
-                            .buttonStyle(.plain)
-                            .keyboardShortcut(
-                                shortcutKeys[index],
-                                modifiers: .command
-                            )
+                            else{
+                                Button {
+                                    clipboardManager.CopyItem(_item: item)
+                                    
+                                    if closeOnCopyItem {
+                                        panelController?.toggle()
+                                    }
+                                } label: {
+                                    ClipboardRow(
+                                        item: item,
+                                        isSelected: selectedIndex == index,
+                                        shortcutNumber: index + 1
+                                    )
+                                }
+                                .buttonStyle(.plain)
+                                .id(index)
+                            }
                         }
-                        else{
-                            Button {
-                                clipboardManager.CopyItem(_item: item)
-                                
-                                if closeOnCopyItem {
-                                    panelController?.toggle()
-                                }
-                            } label: {
-                                ClipboardRow(
-                                    item: item,
-                                    shortcutNumber: index + 1
-                                )
-                            }
-                            .buttonStyle(.plain)
+                    }
+                    .onReceive(
+                        NotificationCenter.default.publisher(
+                            for: .clipboardMoveUp
+                        )
+                    ) { _ in
+                        if selectedIndex > 0 {
+                            selectedIndex -= 1
+                        }
+                    }
+                    .onReceive(
+                        NotificationCenter.default.publisher(
+                            for: .clipboardMoveDown
+                        )
+                    ) { _ in
+                        if selectedIndex < filteredHistory.count - 1 {
+                            selectedIndex += 1
+                        }
+                    }
+                    .onReceive(
+                        NotificationCenter.default.publisher(
+                            for: .clipboardReturn
+                        )
+                    ) { _ in
+                        guard filteredHistory.indices.contains(selectedIndex) else {
+                            return
+                        }
+                        
+                        let item = filteredHistory[selectedIndex]
+                        
+                        clipboardManager.CopyItem(_item: item)
+                        
+                        if closeOnCopyItem {
+                            panelController?.toggle()
                         }
                     }
                 }
+                .scrollIndicators(.never)
+                .frame(height: 500)
+                .onChange(of: selectedIndex) {
+                    withAnimation {
+                        proxy.scrollTo(selectedIndex, anchor: .bottom)
+                    }
+                }
             }
-            .scrollIndicators(.never)
-            .frame(height: 500)
                 
             HStack{
                 Text("\(clipboardManager.history.count)/10")

@@ -10,6 +10,7 @@ import AppKit
 
 struct ClipboardRow: View{
     let item: ClipboardItem
+    let isSelected: Bool
     
     @State private var isHovered = false
     var shortcutNumber: Int
@@ -80,9 +81,16 @@ struct ClipboardRow: View{
                 isHovered = hovering
             }
         }
+        .overlay {
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(
+                    isSelected ? .blue : .clear,
+                    lineWidth: 2
+                )
+        }
     }
 }
 
 #Preview{
-    ClipboardRow(item: .init(text: "Hello World", sourceApp: "com.apple.Safari"), shortcutNumber: 1)
+    ClipboardRow(item: .init(text: "Hello World", sourceApp: "com.apple.Safari"), isSelected: false, shortcutNumber: 1)
 }
