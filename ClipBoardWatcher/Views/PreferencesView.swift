@@ -18,6 +18,7 @@ struct PreferencesView: View {
     @AppStorage("launchAtLogin") private var launchAtLogin = false
     @AppStorage("closeOnCopyItem") private var closeOnCopyItem = true
     @AppStorage("showInDock") private var showInDock = false
+    @AppStorage("playSoundOnCopyItem") private var playSoundOnCopyItem = true
     
     var body: some View {
         VStack{
@@ -35,6 +36,8 @@ struct PreferencesView: View {
                     }
             
             Toggle("Close on copy item", isOn: $closeOnCopyItem)
+            
+            Toggle("Play sound on copy item", isOn: $playSoundOnCopyItem)
             
             Divider()
             

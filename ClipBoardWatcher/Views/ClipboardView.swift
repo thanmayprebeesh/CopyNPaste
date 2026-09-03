@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ClipboardView: View {
     @AppStorage("closeOnCopyItem") private var closeOnCopyItem = true
+    @AppStorage("playSoundOnCopyItem") private var playSoundOnCopyItem = true
     
     @State private var isCloseButtonHovered = false
     @State private var searchText: String = ""
@@ -79,6 +80,10 @@ struct ClipboardView: View {
                         if index < 9{
                             Button {
                                 clipboardManager.CopyItem(_item: item)
+                                
+                                if playSoundOnCopyItem{
+                                    NSSound(named: "Bottle")?.play()
+                                }
                                 
                                 if closeOnCopyItem {
                                     panelController?.toggle()
