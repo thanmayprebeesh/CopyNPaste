@@ -10,8 +10,10 @@ import AppKit
 
 struct ClipboardRow: View{
     let item: ClipboardItem
+    let isSelected: Bool
     
     @State private var isHovered = false
+    var shortcutNumber: Int
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6){
@@ -55,24 +57,42 @@ struct ClipboardRow: View{
                         .foregroundStyle(.secondary)
                         .fontWeight(.semibold)
                 }
+                
+                Spacer()
+                
+                if shortcutNumber < 10 {
+                    Text("⌘ " + String(shortcutNumber))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .fontWeight(.semibold)
+                }
             }
         }
         .padding(10)
+        .pointingHandCursor()
+        //Effects to show the row is hovered on
         .background(
                     RoundedRectangle(cornerRadius: 8)
                         .fill(isHovered ? .quaternary : .quinary)
                 )
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .scaleEffect(isHovered ? 0.99 : 1)
-        .pointingHandCursor()
         .onHover { hovering in
             withAnimation(.easeInOut(duration: 0.15)){
                 isHovered = hovering
             }
         }
+        //Border to show the row is selected
+        .overlay {
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(
+                    isSelected ? .blue : .clear,
+                    lineWidth: 2
+                )
+        }
     }
 }
 
 #Preview{
-    ClipboardRow(item: .init(text: "Hello World", sourceApp: "com.apple.Safari"))
+    ClipboardRow(item: .init(text: "Hello World", sourceApp: "com.apple.Safari"), isSelected: false, shortcutNumber: 1)
 }
