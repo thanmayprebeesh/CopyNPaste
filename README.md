@@ -9,15 +9,15 @@ CopyNPaste is a utility app that runs in the background while you work, keeping 
 - Clipboard history
 - Supports text and images
 - Persistent history
-- Click an item to copy it again
 - Search clipboard history
+- Intuitive shortcuts
 
 ## Screenshots
 
-<img width="398" height="648" alt="image" src="https://github.com/user-attachments/assets/8a041f0b-6c66-4d53-bc05-6376075e0e80" />
+<img width="398" height="648" alt="image" src="https://github.com/user-attachments/assets/41578bdc-c227-424e-9d75-d4b8b79c379d" />
 
 ## Installation
-Download `CopyNPaste.dmg`, open it, and drag the app into Applications.
+Download `CopyNPaste.dmg` from the latest release, open it, and drag the app into Applications.
 > macOS may show an "unidentified developer" warning because this release is not signed/notarized with an Apple Developer ID.
 
 ## Contributing
